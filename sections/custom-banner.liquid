@@ -1,0 +1,53 @@
+{% schema %}
+{
+  "name": "Custom Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Welcome to Our Store"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Shop the best products here"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Banner"
+    }
+  ]
+}
+{% endschema %}
+
+<div 
+  class="custom-banner"
+  style="background-image: url({{ section.settings.background_image | image_url: 'master' }}); 
+         background-size: cover; background-position: center; padding: 80px 20px; text-align: center; color: white;">
+  <h1>{{ section.settings.heading }}</h1>
+  <p>{{ section.settings.subheading }}</p>
+  {% if section.settings.button_text != blank %}
+    <a href="{{ section.settings.button_link }}" class="btn" style="padding: 10px 20px; background: black; color: white; text-decoration: none;">
+      {{ section.settings.button_text }}
+    </a>
+  {% endif %}
+</div>
