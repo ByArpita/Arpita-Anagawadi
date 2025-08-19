@@ -1,0 +1,57 @@
+{% schema %}
+{
+  "name": "Custom Grid",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "grid_item",
+      "name": "Grid Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "item_image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "item_title",
+          "label": "Title",
+          "default": "Grid Title"
+        },
+        {
+          "type": "textarea",
+          "id": "item_text",
+          "label": "Description",
+          "default": "Some description here"
+        },
+        {
+          "type": "url",
+          "id": "item_link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Grid",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="custom-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; padding: 40px;">
+  {% for block in section.blocks %}
+    <div class="grid-item" style="border: 1px solid #ddd; padding: 20px; text-align: center;">
+      {% if block.settings.item_image %}
+        <img src="{{ block.settings.item_image | image_url: 'medium' }}" alt="{{ block.settings.item_title }}" style="max-width: 100%; height: auto;" />
+      {% endif %}
+      <h3>{{ block.settings.item_title }}</h3>
+      <p>{{ block.settings.item_text }}</p>
+      {% if block.settings.item_link != blank %}
+        <a href="{{ block.settings.item_link }}" style="color: blue; text-decoration: underline;">Learn More</a>
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>
